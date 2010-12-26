@@ -3,27 +3,27 @@
 A basic BattlEye RCON client
 
 == A basic client
+ 
+   require 'em-battleye'
 
-require 'em-battleye'
+   EventMachine::BattlEye.start
+ 
+   rcon = EventMachine::BattlEye.connect("host", port, "password")
 
-EventMachine::BattlEye.start
-
-rcon = EventMachine::BattlEye.connect("host", port, "password")
-
-rcon.onmessage { |message|
-   print "M: #{message}\n"
-}
-
-rcon.errback { |c, msg|
-  print "Error!\n"
-}
-
-rcon.onlogin {
-   rcon.command("players") { |reply|
-      print "\nPlayers Recieved\n#{reply}\n"
+   rcon.onmessage { |message|
+      print "M: #{message}\n"
    }
-}
 
+   rcon.errback { |c, msg|
+      print "Error!\n"
+   }
+
+   rcon.onlogin {
+      rcon.command("players") { |reply|
+         print "\nPlayers Recieved\n#{reply}\n"
+      }
+   }
+  
 == License
 
 (The MIT License)
